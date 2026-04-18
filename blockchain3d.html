@@ -1,0 +1,596 @@
+Ingen er valgt
+
+Hopp til innhold
+Bruk Gmail med skjermlesere
+29 av 16 484
+Solana
+Innboks
+Øystein Larsen <oystein.larsen@pixotope.com>
+Vedlegg
+17. apr. 2026, 22:52 (for 17 timer siden)
+til meg
+
+Vær forsiktig med denne e-posten.
+Denne e-posten har ett eller flere vedlegg som Gmail ikke kan bekrefte, og som kan være skadelige. Ikke last ned vedleggene med mindre du stoler på avsenderen og e-posten.
+
+Rapporter som søppelpostDette ser trygt ut
+
+
+photo
+
+Øystein Larsen
+Chief Creative Officer, Pixotope
+
++47 93245425  |  oystein.larsen@pixotope.com
+
+www.pixotope.com
+
+vimeo
+
+youtube
+
+facebook
+
+instagram
+
+linkedin
+
+App Banner Image
+
+ 
+__tpx__
+...
+
+[E-posten er avkuttet]  Se hele e-posten
+ Ett vedlegg
+  •  Skannet av Gmail
+Funksjonen for nedlasting av dette vedlegget er deaktivert. Hvis du vil laste ned vedlegget, og du stoler på e-posten, klikker du på «E-posten ser trygg ut» på banneret ovenfor.
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>3D Blockchain Comparison — Solana vs TRON vs Bitcoin</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #05060d; overflow: hidden; font-family: system-ui, sans-serif; color: #e7e9f2; }
+  #app { position: fixed; inset: 0; }
+  #overlay {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    text-align: center; pointer-events: none; z-index: 10;
+  }
+  #overlay h1 {
+    margin: 0; font-weight: 300; letter-spacing: 0.2em; font-size: 22px;
+    background: linear-gradient(90deg, #9945ff, #ff060a, #f7931a);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  #overlay p { margin: 4px 0 0; font-size: 11px; color: #9aa0b4; letter-spacing: 0.15em; }
+  #stats {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 30px; font-family: "JetBrains Mono", monospace; font-size: 12px;
+    background: rgba(10, 12, 22, 0.7); border: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 20px; border-radius: 10px; backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+  #stats .col { text-align: center; }
+  #stats .label { color: #9aa0b4; font-size: 10px; letter-spacing: 0.15em; }
+  #stats .val { font-size: 20px; font-weight: 600; }
+  #stats .sol  .val { color: #14f195; }
+  #stats .tron .val { color: #ff8186; }
+  #stats .btc  .val { color: #ffd580; }
+  #hint {
+    position: fixed; top: 16px; right: 16px; font-size: 11px; color: #9aa0b4;
+    background: rgba(10, 12, 22, 0.7); padding: 8px 12px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08); z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<div id="overlay">
+  <h1>BLOCK TIME COMPARISON</h1>
+  <p>SOLANA &nbsp;·&nbsp; TRON &nbsp;·&nbsp; BITCOIN</p>
+</div>
+
+<div id="hint">drag to orbit · scroll to zoom</div>
+
+<div id="stats">
+  <div class="col sol">
+    <div class="label">SOLANA</div>
+    <div class="val" id="sol-c">0</div>
+    <div class="label">400 ms</div>
+  </div>
+  <div class="col tron">
+    <div class="label">TRON</div>
+    <div class="val" id="tron-c">0</div>
+    <div class="label">3 s</div>
+  </div>
+  <div class="col btc">
+    <div class="label">BITCOIN</div>
+    <div class="val" id="btc-c">0</div>
+    <div class="label">~10 min</div>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ---------- basic setup ----------
+const app = document.getElementById('app');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x05060d);
+scene.fog = new THREE.Fog(0x05060d, 30, 80);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200);
+camera.position.set(0, 10, 32);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+app.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(0, 0, 0);
+controls.minDistance = 10;
+controls.maxDistance = 80;
+
+
+// ---------- lighting ----------
+scene.add(new THREE.AmbientLight(0x2a2f55, 0.5));
+const key = new THREE.PointLight(0xc499ff, 80, 50);
+key.position.set(0, 12, 8);
+scene.add(key);
+const fill = new THREE.PointLight(0x33ccff, 40, 40);
+fill.position.set(12, -8, 4);
+scene.add(fill);
+
+// ---------- floor grid ----------
+const grid = new THREE.GridHelper(80, 40, 0x1a2040, 0x0c0e24);
+grid.position.y = -2.5;
+scene.add(grid);
+
+const floorMat = new THREE.MeshStandardMaterial({ color: 0x05061a, metalness: 0.7, roughness: 0.4 });
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 20), floorMat);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -2.6;
+scene.add(floor);
+
+// ---------- helpers ----------
+function emissiveMat(hex, intensity = 2) {
+  return new THREE.MeshStandardMaterial({
+    color: hex, emissive: hex, emissiveIntensity: intensity,
+    metalness: 0.6, roughness: 0.25,
+  });
+}
+function pureEmission(hex, intensity = 4) {
+  return new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(intensity) });
+}
+
+function makeLabel(text, color = '#ffffff', size = 256) {
+  const cnv = document.createElement('canvas');
+  cnv.width = size * 4; cnv.height = size;
+  const ctx = cnv.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.font = `700 ${Math.floor(size * 0.62)}px "Inter", system-ui, sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(text, cnv.width / 2, cnv.height / 2);
+  const tex = new THREE.CanvasTexture(cnv);
+  tex.anisotropy = 8;
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(6, 1.5, 1);
+  return sprite;
+}
+function makeStatLabel(text, color = '#9aa0b4', size = 200) {
+  const cnv = document.createElement('canvas');
+  cnv.width = size * 6; cnv.height = size;
+  const ctx = cnv.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.font = `500 ${Math.floor(size * 0.5)}px "JetBrains Mono", monospace`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(text, cnv.width / 2, cnv.height / 2);
+  const tex = new THREE.CanvasTexture(cnv);
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true });
+  const sp = new THREE.Sprite(mat);
+  sp.scale.set(5, 0.8, 1);
+  return sp;
+}
+
+function makeConnection(p1, p2, color, radius = 0.035) {
+  const dir = new THREE.Vector3().subVectors(p2, p1);
+  const len = dir.length();
+  const geo = new THREE.CylinderGeometry(radius, radius, len, 6);
+  const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(0.6), transparent: true, opacity: 0.7 });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(p1).add(p2).multiplyScalar(0.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+  return mesh;
+}
+
+// ---------- SOLANA SCENE ----------
+const solRoot = new THREE.Group();
+solRoot.position.set(-13, 0, 0);
+scene.add(solRoot);
+
+// Leader
+const leader = new THREE.Mesh(new THREE.SphereGeometry(0.6, 32, 24), pureEmission(0xffd700, 1.8));
+solRoot.add(leader);
+// Glow halo
+const leaderGlow = new THREE.Mesh(new THREE.SphereGeometry(0.9, 24, 16),
+  new THREE.MeshBasicMaterial({ color: 0xffdf6a, transparent: true, opacity: 0.2 }));
+solRoot.add(leaderGlow);
+
+// Validator ring (8, rotate)
+const validatorRing = new THREE.Group();
+solRoot.add(validatorRing);
+const validators = [];
+const validatorPositions = [];
+const numVal = 8;
+for (let i = 0; i < numVal; i++) {
+  const a = (i / numVal) * Math.PI * 2;
+  const x = 3.0 * Math.cos(a), z = 3.0 * Math.sin(a);
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.35, 20, 14), emissiveMat(0x9945ff, 2.5));
+  m.position.set(x, 0, z);
+  validatorRing.add(m);
+  validators.push(m);
+  validatorPositions.push(new THREE.Vector3(x, 0, z));
+
+  // connection leader -> validator
+  validatorRing.add(makeConnection(new THREE.Vector3(0, 0, 0), new THREE.Vector3(x, 0, z), 0x9945ff));
+}
+
+// RPC ring (16, rotate opposite)
+const rpcRing = new THREE.Group();
+solRoot.add(rpcRing);
+const rpcPositions = [];
+const numRpc = 16;
+for (let i = 0; i < numRpc; i++) {
+  const a = (i / numRpc) * Math.PI * 2;
+  const x = 6.0 * Math.cos(a), z = 6.0 * Math.sin(a);
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 12), emissiveMat(0x14f195, 2.0));
+  m.position.set(x, 0, z);
+  rpcRing.add(m);
+  rpcPositions.push(new THREE.Vector3(x, 0, z));
+}
+// connect validators to 2 RPC nodes each
+for (let i = 0; i < numVal; i++) {
+  const v = validatorPositions[i];
+  const r1 = rpcPositions[(i * 2) % numRpc];
+  const r2 = rpcPositions[(i * 2 + 1) % numRpc];
+  solRoot.add(makeConnection(v, r1, 0x14f195, 0.02));
+  solRoot.add(makeConnection(v, r2, 0x14f195, 0.02));
+}
+
+// ============ SOLANA PoH + LEADER ROTATION + GULF STREAM ============
+
+// Leader rotation state: one validator holds the leader role for ~1.6s (4 slots of 400ms)
+// We speed this up for visual impact -> 1200 ms
+const LEADER_SLOT_MS = 1200;
+let currentLeaderIdx = 0;
+let lastLeaderSwitch = performance.now();
+
+// Leader highlight "halo" - big transparent sphere that snaps to current leader
+const leaderMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.55, 24, 16),
+  new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.45 })
+);
+solRoot.add(leaderMarker);
+
+// Turbine broadcast: when a block is produced, flash lines from leader to all validators
+const turbineLines = [];
+for (let i = 0; i < numVal; i++) {
+  const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+  const mat = new THREE.LineBasicMaterial({ color: 0xffffaa, transparent: true, opacity: 0 });
+  const line = new THREE.Line(geo, mat);
+  solRoot.add(line);
+  turbineLines.push(line);
+}
+let turbineFlashStart = -1;
+
+// Gulf Stream TX particles: transactions flying from random RPC nodes to current leader
+const txParticles = [];
+const NUM_TX = 24;
+for (let i = 0; i < NUM_TX; i++) {
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 6), pureEmission(0x14f195, 2.5));
+  m.visible = false;
+  solRoot.add(m);
+  txParticles.push({ mesh: m, from: new THREE.Vector3(), to: new THREE.Vector3(), start: 0, dur: 600, active: false });
+}
+
+// PoH stream: upward helix of hash dots emanating from current leader (proof the clock is ticking)
+const pohDots = [];
+const NUM_POH = 40;
+for (let i = 0; i < NUM_POH; i++) {
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.04, 6, 4), pureEmission(0xfff2a8, 2.5));
+  solRoot.add(m);
+  pohDots.push({ mesh: m, seed: i / NUM_POH });
+}
+
+// Solana block chain (above leader)
+const solChainGroup = new THREE.Group();
+solChainGroup.position.set(-3, 3.5, 0);
+solRoot.add(solChainGroup);
+const solBlocks = [];
+const solBlockMat = emissiveMat(0x9945ff, 3.0);
+for (let i = 0; i < 6; i++) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), solBlockMat);
+  b.position.set(i * 0.8, 0, 0);
+  b.visible = false;
+  solChainGroup.add(b);
+  solBlocks.push({ mesh: b, spawnedAt: -1 });
+}
+
+// Labels
+const solTitle = makeLabel('SOLANA', '#c49dff'); solTitle.position.set(0, 4.7, 0); solTitle.scale.set(5, 1.25, 1); solRoot.add(solTitle);
+const solSub1 = makeStatLabel('400 ms · PoH + PoS', '#c0c5dc'); solSub1.position.set(0, 3.9, 0); solSub1.scale.set(4.2, 0.7, 1); solRoot.add(solSub1);
+const solSub2 = makeStatLabel('~3,000 TPS · 1,400 validators', '#9aa0b4'); solSub2.position.set(0, 3.3, 0); solSub2.scale.set(4.2, 0.65, 1); solRoot.add(solSub2);
+const solFoot = makeStatLabel('getLatestBlockhash → every slot', '#8fcfff'); solFoot.position.set(0, -3.1, 0); solFoot.scale.set(4.5, 0.55, 1); solRoot.add(solFoot);
+
+// ---------- TRON SCENE ----------
+const tronRoot = new THREE.Group();
+tronRoot.position.set(0, 0, 0);
+scene.add(tronRoot);
+
+const activeSR = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 24), pureEmission(0xff060a, 1.8));
+tronRoot.add(activeSR);
+const activeSRGlow = new THREE.Mesh(new THREE.SphereGeometry(0.8, 24, 16),
+  new THREE.MeshBasicMaterial({ color: 0xff3a45, transparent: true, opacity: 0.25 }));
+tronRoot.add(activeSRGlow);
+
+const srRing = new THREE.Group();
+tronRoot.add(srRing);
+const numSR = 12;
+const srPositions = [];
+for (let i = 0; i < numSR; i++) {
+  const a = (i / numSR) * Math.PI * 2;
+  const x = 2.4 * Math.cos(a), z = 2.4 * Math.sin(a);
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.28, 18, 12), emissiveMat(0xff060a, 2.2));
+  m.position.set(x, 0, z);
+  srRing.add(m);
+  srPositions.push(new THREE.Vector3(x, 0, z));
+  srRing.add(makeConnection(new THREE.Vector3(0, 0, 0), new THREE.Vector3(x, 0, z), 0xff060a, 0.025));
+}
+
+// TRON blocks
+const tronChainGroup = new THREE.Group();
+tronChainGroup.position.set(-3, 3.5, 0);
+tronRoot.add(tronChainGroup);
+const tronBlocks = [];
+const tronBlockMat = emissiveMat(0xff060a, 3.0);
+for (let i = 0; i < 6; i++) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), tronBlockMat);
+  b.position.set(i * 0.8, 0, 0);
+  b.visible = false;
+  tronChainGroup.add(b);
+  tronBlocks.push({ mesh: b, spawnedAt: -1 });
+}
+
+const tronTitle = makeLabel('TRON', '#ff6a72'); tronTitle.position.set(0, 4.7, 0); tronTitle.scale.set(4, 1.25, 1); tronRoot.add(tronTitle);
+const tronSub1 = makeStatLabel('3 sec · DPoS (27 SRs)', '#ffb5b9'); tronSub1.position.set(0, 3.9, 0); tronSub1.scale.set(4, 0.7, 1); tronRoot.add(tronSub1);
+const tronSub2 = makeStatLabel('~2,000 TPS · elected producers', '#c99aa0'); tronSub2.position.set(0, 3.3, 0); tronSub2.scale.set(4, 0.65, 1); tronRoot.add(tronSub2);
+const tronFoot = makeStatLabel('rotating leaders', '#ff8f93'); tronFoot.position.set(0, -3.1, 0); tronFoot.scale.set(3.5, 0.55, 1); tronRoot.add(tronFoot);
+
+// ---------- BITCOIN SCENE ----------
+const btcRoot = new THREE.Group();
+btcRoot.position.set(13, 0, 0);
+scene.add(btcRoot);
+
+const minerPositions = [
+  [-2.0, 0, -1.2], [-2.0, 0, 1.8], [0, 0, -2.2], [0.2, 0, 2.0], [2.0, 0, -1.6], [2.0, 0, 1.0],
+];
+const miners = [];
+for (let i = 0; i < minerPositions.length; i++) {
+  const p = minerPositions[i];
+  const m = new THREE.Mesh(new THREE.SphereGeometry(0.4, 20, 14), emissiveMat(0xf7931a, 1.8));
+  m.position.set(p[0], p[1], p[2]);
+  btcRoot.add(m);
+  miners.push({ mesh: m, phase: Math.random() * Math.PI * 2, speed: 0.6 + Math.random() * 0.6 });
+}
+
+// Bitcoin blocks
+const btcChainGroup = new THREE.Group();
+btcChainGroup.position.set(-3, 3.5, 0);
+btcRoot.add(btcChainGroup);
+const btcBlocks = [];
+const btcBlockMat = emissiveMat(0xf7931a, 2.5);
+for (let i = 0; i < 6; i++) {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.6), btcBlockMat);
+  b.position.set(i * 0.9, 0, 0);
+  b.visible = false;
+  btcChainGroup.add(b);
+  btcBlocks.push({ mesh: b, spawnedAt: -1 });
+}
+
+const btcTitle = makeLabel('BITCOIN', '#ffb970'); btcTitle.position.set(0, 4.7, 0); btcTitle.scale.set(5, 1.25, 1); btcRoot.add(btcTitle);
+const btcSub1 = makeStatLabel('~10 min · Proof of Work', '#ffd8a8'); btcSub1.position.set(0, 3.9, 0); btcSub1.scale.set(4.2, 0.7, 1); btcRoot.add(btcSub1);
+const btcSub2 = makeStatLabel('~7 TPS · 15,000 full nodes', '#c9ae8a'); btcSub2.position.set(0, 3.3, 0); btcSub2.scale.set(4.2, 0.65, 1); btcRoot.add(btcSub2);
+const btcFoot = makeStatLabel('miners compete · no leader', '#f7c280'); btcFoot.position.set(0, -3.1, 0); btcFoot.scale.set(4.2, 0.55, 1); btcRoot.add(btcFoot);
+
+// ---------- BLOCK LOGIC ----------
+const solCounterEl  = document.getElementById('sol-c');
+const tronCounterEl = document.getElementById('tron-c');
+const btcCounterEl  = document.getElementById('btc-c');
+let solCount = 0, tronCount = 0, btcCount = 0;
+let solSlot = 0, tronSlot = 0, btcSlot = 0;
+
+function spawnBlock(blocks, slot, group, maxVisible = 6) {
+  const idx = slot % maxVisible;
+  const b = blocks[idx];
+  b.spawnedAt = performance.now();
+  b.mesh.visible = true;
+  b.mesh.scale.setScalar(0.01);
+  // reposition blocks so the new one is at the right side
+  blocks.forEach((bb, i) => {
+    const order = (slot - i + maxVisible) % maxVisible;
+    bb.mesh.position.x = (maxVisible - 1 - order) * 0.85;
+  });
+}
+
+// Ticks (real-ish rates; bitcoin accelerated 60× for viewer sanity)
+setInterval(() => { solCount++; solSlot++; solCounterEl.textContent = solCount.toLocaleString(); spawnBlock(solBlocks, solSlot, solChainGroup); }, 400);
+setInterval(() => { tronCount++; tronSlot++; tronCounterEl.textContent = tronCount.toLocaleString(); spawnBlock(tronBlocks, tronSlot, tronChainGroup); }, 3000);
+setInterval(() => { btcCount++; btcSlot++; btcCounterEl.textContent = btcCount.toLocaleString(); spawnBlock(btcBlocks, btcSlot, btcChainGroup); }, 10000);
+
+// ---------- ANIMATION LOOP ----------
+const clock = new THREE.Clock();
+
+function animate() {
+  const t = clock.getElapsedTime();
+  const now = performance.now();
+
+  // --- SOLANA ---
+  // ring rotations (slower so leader changes are legible)
+  validatorRing.rotation.y = t * 0.15;
+  rpcRing.rotation.y = -t * 0.25;
+
+  // central leader beacon still pulses (represents PoH running)
+  const pulse = 0.8 + Math.sin(t * 6) * 0.2;
+  leader.scale.setScalar(pulse * 0.7);
+  leaderGlow.scale.setScalar(pulse * 0.85);
+
+  // LEADER ROTATION: switch every LEADER_SLOT_MS
+  if (now - lastLeaderSwitch > LEADER_SLOT_MS) {
+    currentLeaderIdx = (currentLeaderIdx + 1) % numVal;
+    lastLeaderSwitch = now;
+    turbineFlashStart = now; // trigger Turbine broadcast flash on slot change
+  }
+
+  // Position the leader marker on the current validator (in local space of solRoot)
+  const curLeaderMesh = validators[currentLeaderIdx];
+  const curLeaderLocal = new THREE.Vector3();
+  curLeaderMesh.getWorldPosition(curLeaderLocal);
+  curLeaderLocal.sub(solRoot.position);
+  leaderMarker.position.lerp(curLeaderLocal, 0.18);
+  const leaderPulse = 0.9 + Math.sin(t * 12) * 0.1;
+  leaderMarker.scale.setScalar(leaderPulse);
+
+  // GULF STREAM: spawn TXs from random RPCs heading to current leader
+  txParticles.forEach(tx => {
+    if (!tx.active) {
+      if (Math.random() < 0.05) {
+        tx.active = true;
+        const rpcWorld = new THREE.Vector3();
+        rpcRing.children[Math.floor(Math.random() * numRpc)].getWorldPosition(rpcWorld);
+        tx.from.copy(rpcWorld).sub(solRoot.position);
+        tx.to.copy(leaderMarker.position);
+        tx.start = now;
+        tx.dur = 500 + Math.random() * 300;
+        tx.mesh.visible = true;
+      }
+    } else {
+      const p = (now - tx.start) / tx.dur;
+      if (p >= 1) {
+        tx.active = false; tx.mesh.visible = false;
+      } else {
+        // Keep updating target in case leader moved mid-flight
+        tx.to.copy(leaderMarker.position);
+        tx.mesh.position.lerpVectors(tx.from, tx.to, p);
+        const fade = 1 - p * 0.5;
+        tx.mesh.material.color.setRGB(0.15 * fade, 1 * fade, 0.6 * fade).multiplyScalar(2.5);
+      }
+    }
+  });
+
+  // PoH STREAM: upward helix of hashes emanating from current leader
+  pohDots.forEach(d => {
+    const phase = ((t * 0.6) + d.seed) % 1;
+    const angle = phase * Math.PI * 6;
+    const radius = 0.15 + phase * 0.25;
+    d.mesh.position.set(
+      leaderMarker.position.x + Math.cos(angle) * radius,
+      phase * 2.8,
+      leaderMarker.position.z + Math.sin(angle) * radius
+    );
+    const a = Math.max(0, 1 - phase);
+    d.mesh.material.color.setRGB(1 * a, 0.95 * a, 0.4 * a).multiplyScalar(2);
+    d.mesh.scale.setScalar(0.4 + a * 0.8);
+  });
+
+  // TURBINE BROADCAST: when leader just switched (new block), flash lines from leader to all validators
+  const flashAge = (now - turbineFlashStart) / 1000;
+  turbineLines.forEach((line, i) => {
+    const target = validators[i].getWorldPosition(new THREE.Vector3()).sub(solRoot.position);
+    const pos = line.geometry.attributes.position;
+    pos.setXYZ(0, leaderMarker.position.x, leaderMarker.position.y, leaderMarker.position.z);
+    pos.setXYZ(1, target.x, target.y, target.z);
+    pos.needsUpdate = true;
+    line.material.opacity = Math.max(0, 0.9 - flashAge * 3);
+  });
+
+  // block appear animation
+  solBlocks.forEach(b => {
+    if (!b.mesh.visible) return;
+    const age = (now - b.spawnedAt) / 1000;
+    const s = Math.min(age / 0.2, 1);
+    b.mesh.scale.setScalar(s);
+    b.mesh.rotation.y = (1 - s) * Math.PI;
+  });
+
+  // --- TRON ---
+  srRing.rotation.y = t * 0.3;
+  const tronPulse = 0.85 + Math.sin(t * (Math.PI * 2 / 3)) * 0.25;
+  activeSR.scale.setScalar(tronPulse);
+  activeSRGlow.scale.setScalar(tronPulse * 1.2);
+
+  tronBlocks.forEach(b => {
+    if (!b.mesh.visible) return;
+    const age = (now - b.spawnedAt) / 1000;
+    const s = Math.min(age / 0.4, 1);
+    b.mesh.scale.setScalar(s);
+    b.mesh.rotation.y = (1 - s) * Math.PI * 2;
+  });
+
+  // --- BITCOIN ---
+  miners.forEach(m => {
+    const f = 0.4 + Math.max(0, Math.sin(t * m.speed + m.phase) - 0.7) * 4;
+    m.mesh.material.emissiveIntensity = 1.5 + f * 2;
+    m.mesh.scale.setScalar(1 + f * 0.1);
+  });
+
+  btcBlocks.forEach(b => {
+    if (!b.mesh.visible) return;
+    const age = (now - b.spawnedAt) / 1000;
+    const s = Math.min(age / 0.6, 1);
+    b.mesh.scale.setScalar(s);
+    b.mesh.rotation.y = (1 - s) * Math.PI * 2;
+  });
+
+  // Slow auto-orbit (damped by controls)
+  controls.update();
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+
+// initial kick so blocks appear immediately
+spawnBlock(solBlocks, ++solSlot, solChainGroup);  solCount++;  solCounterEl.textContent  = solCount;
+spawnBlock(tronBlocks, ++tronSlot, tronChainGroup); tronCount++; tronCounterEl.textContent = tronCount;
+spawnBlock(btcBlocks, ++btcSlot, btcChainGroup);  btcCount++;  btcCounterEl.textContent  = btcCount;
+
+animate();
+
+// ---------- resize ----------
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>
+blockchain-3d.html
+Viser blockchain-3d.html.
