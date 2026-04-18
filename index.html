@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mind-Opening Chain Speed Visualizer</title>
+  <style>
+    :root {
+      --bg: #060915;
+      --card: #0e1530;
+      --text: #e7ecff;
+      --muted: #9db0ff;
+      --accent: #00f5d4;
+      --warn: #ff5f7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, #13214d 0, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .panel {
+      background: linear-gradient(160deg, #10193b, var(--card));
+      border: 1px solid #2a3e85;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 14px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+    }
+
+    .sub { color: var(--muted); margin: 0; }
+
+    .input-row {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .tx-value {
+      font-size: clamp(1.25rem, 3vw, 2.25rem);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: rgba(8, 13, 30, 0.85);
+      border: 1px solid #29418c;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .name { font-weight: 700; margin: 0 0 6px; }
+
+    .big {
+      margin: 0;
+      font-size: clamp(1.1rem, 2.5vw, 1.65rem);
+      font-weight: 700;
+    }
+
+    .small { margin: 6px 0 0; color: var(--muted); font-size: 0.9rem; }
+
+    .mind-open {
+      font-size: clamp(1rem, 2.1vw, 1.35rem);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .highlight { color: var(--accent); font-weight: 700; }
+
+    .warning { color: var(--warn); }
+
+    .foot {
+      color: #b9c6f7;
+      font-size: 0.87rem;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="panel">
+      <h1>Solana Speed vs Other Chains — in Human Time</h1>
+      <p class="sub">Move the dial and watch how one transaction target stretches into radically different realities.</p>
+      <div class="input-row">
+        <label for="tx">Transactions to process</label>
+        <div id="txValue" class="tx-value">250,000</div>
+        <input id="tx" type="range" min="1000" max="1000000" step="1000" value="250000" />
+      </div>
+    </section>
+
+    <section class="grid" id="cards"></section>
+
+    <section class="panel">
+      <p id="mindOpen" class="mind-open"></p>
+    </section>
+
+    <section class="panel">
+      <p class="foot">
+        TPS values shown are widely cited illustrative capacities (Solana ~65,000; Ethereum ~15; Bitcoin ~7) and can vary by conditions, upgrades, and network load.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const chainData = [
+      { name: 'Solana', tps: 65000 },
+      { name: 'Ethereum', tps: 15 },
+      { name: 'Bitcoin', tps: 7 }
+    ];
+
+    const txInput = document.getElementById('tx');
+    const txValue = document.getElementById('txValue');
+    const cards = document.getElementById('cards');
+    const mindOpen = document.getElementById('mindOpen');
+
+    function formatDuration(seconds) {
+      if (seconds < 60) return `${seconds.toFixed(2)} sec`;
+      if (seconds < 3600) return `${(seconds / 60).toFixed(2)} min`;
+      if (seconds < 86400) return `${(seconds / 3600).toFixed(2)} hr`;
+      return `${(seconds / 86400).toFixed(2)} days`;
+    }
+
+    function humanMoment(seconds) {
+      const breaths = seconds / 4.5;
+      const heartbeats = seconds * 1.2;
+      if (seconds < 10) return `about ${Math.round(heartbeats)} heartbeats`;
+      if (seconds < 600) return `about ${Math.round(breaths)} deep breaths`;
+      if (seconds < 86400) return `about ${(seconds / 3600).toFixed(1)} hours of your day`;
+      return `about ${(seconds / 86400).toFixed(1)} full days of waiting`;
+    }
+
+    function render() {
+      const tx = Number(txInput.value);
+      txValue.textContent = tx.toLocaleString();
+
+      const results = chainData.map(chain => ({
+        ...chain,
+        seconds: tx / chain.tps
+      }));
+
+      cards.innerHTML = results.map(result => `
+        <article class="card">
+          <p class="name">${result.name}</p>
+          <p class="big">${formatDuration(result.seconds)}</p>
+          <p class="small">≈ ${humanMoment(result.seconds)}</p>
+        </article>
+      `).join('');
+
+      const solana = results.find(r => r.name === 'Solana').seconds;
+      const eth = results.find(r => r.name === 'Ethereum').seconds;
+      const btc = results.find(r => r.name === 'Bitcoin').seconds;
+      const ethMultiple = (eth / solana).toFixed(0);
+      const btcMultiple = (btc / solana).toFixed(0);
+
+      mindOpen.innerHTML = `
+        For <span class="highlight">${tx.toLocaleString()}</span> transfers, Solana finishes in
+        <span class="highlight">${formatDuration(solana)}</span>.<br>
+        Ethereum takes roughly <span class="warning">${ethMultiple}× longer</span>,
+        and Bitcoin about <span class="warning">${btcMultiple}× longer</span>.<br>
+        Same target. Completely different experience of time.
+      `;
+    }
+
+    txInput.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
